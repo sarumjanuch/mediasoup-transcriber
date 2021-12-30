@@ -1,0 +1,16 @@
+{
+  "name": "client-webpage",
+  "version": "1.0.0",
+  "description": "Client webpage app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Balazs Kreith",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "mediasoup-client": "^3.6.47",
+    "uuid": "^8.3.2",
+    "ws": "^8.4.0"
+  }
+}

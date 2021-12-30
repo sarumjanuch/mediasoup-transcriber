@@ -1,0 +1,22 @@
+version: "3.2"
+services:
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: docker_server
+    network_mode: "bridge"
+    ports:
+      - "5000-5900:5000-5900"
+      - "5959:5959"
+    environment:
+      - HOSTNAME=localhost
+      - RTCMIN_PORT=5000
+      - RTCMAX_PORT=5900
+      - WEBPAGE_PORT=5959
+      - ANNOUNCED_IP=127.0.0.1
+      - GOOGLE_APPLICATION_CREDENTIALS=/keys/observertc-8b6ec22f2952.json
+    volumes:
+      - type: bind
+        source: ./keys
+        target: /keys
