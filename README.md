@@ -1,4 +1,4 @@
-WebRTC Transcriber
+Transcriber Server using Mediasoup SFU for WebRTC Communication
 ---
 
 Simple Proof of Concept for creating a server accepting [WebRTC](https://webrtc.org) connections through a [mediasoup SFU](https://mediasoup.org/) and transcribe the audio using [Google Speech API](https://cloud.google.com/speech-to-text/docs).
