@@ -129,18 +129,20 @@ class ConfigProcessor {
                 const docs = ["Configuration"];
                 const argv = require('yargs-parser')(process.argv.slice(2));
                 for (const [configKey, configEntry] of configEntries.entries()) {
-                    let value = configEntry.env ? process.env[configEntry.env!] : null;
+                    let value: string | null | undefined = configEntry.env ? process.env[configEntry.env!] : null;
                     const argKey = configEntry.arg ?? configKey;
                     if (!value) {
                         value = argv[argKey];
                         if (!value) {
                             value = configEntry.defaultValue
-                            if (!value) {
+                            if (value === undefined) {
                                 throw new Error(`Cannot make config, because ${argKey} for ${configKey} missing value, which is defined as mandatory`);
                             }
                         }
                     }
-                    config._values.set(configKey, value);
+                    if (value !== null) {
+                        config._values.set(configKey, value);
+                    }
                     docs.push(`\t${argKey}\t\t${configEntry.doc}`);
                 }
                 config._docs = docs.join("\n");
@@ -227,10 +229,17 @@ export const config = ConfigProcessor.from({
         arg: 'rtcmaxport',
     },
     announcedIp: {
-        doc: 'The IP announced by the mediasoup transport',
+        doc: 'The announed IP address',
         format: "string",
-        defaultValue: '127.0.0.1',
+        defaultValue: null,
         env: 'ANNOUNCED_IP',
         arg: 'announcedIp',
+    },
+    serverIp: {
+        doc: 'The server IP address',
+        format: "string",
+        defaultValue: null,
+        env: 'SERVER_IP',
+        arg: 'serverIp',
     },
 })

@@ -25,6 +25,7 @@ async function lookup(hostname: any): Promise<string> {
 const { config } = require("./appconfig");
 logger.info("Loaded config", config.getLoadedConfig());
 logger.info("Endianess", os.endianness());
+logger.info(`process.env.ENV_HOST_IP: ${process.env.ENV_HOST_IP}`);
 
 async function main(): Promise<void> {
     const hostname = config.get("hostname");
@@ -32,7 +33,7 @@ async function main(): Promise<void> {
     const rtcMinPort = config.getAsNumber("rtcMinPort");
     const rtcMaxPort = config.getAsNumber("rtcMaxPort");
     const announcedIp = config.get("announcedIp");
-    const serverIp = await lookup(hostname);
+    const serverIp = config.get("serverIp") ?? await lookup(hostname);
     logger.info("Server IP", serverIp);
     const server = await Server.builder()
         .setPort(webpagePort)

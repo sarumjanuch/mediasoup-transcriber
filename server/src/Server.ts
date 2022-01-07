@@ -324,26 +324,22 @@ export class Server {
                 try {
                     const { requestId, role } = request;
                     let transportInfo: TransportInfo | undefined = undefined;
-                    const ip: string = this._announcedIp ?? this._serverIp!;
+                    const ip: string = this._serverIp!;
                     const announcedIp: string | undefined = this._announcedIp;
+                    const transportOptions: mediasoup.types.WebRtcTransportOptions = {
+                        listenIps: [{
+                            ip,
+                            announcedIp,
+                        }],
+                    };
                     switch (role) {
                         case TransportRole.producers:
-                            transportInfo = await client!.makeProducerTransport({
-                                listenIps: [{
-                                    ip,
-                                    announcedIp,
-                                }],
-                            });
-                            logger.info(`Transport info for role ${role}: `, transportInfo);
+                            transportInfo = await client!.makeProducerTransport(transportOptions);
+                            logger.info(`Transport info for role ${role}: (transportOptions, transportInfo)`, transportOptions, transportInfo);
                             break;
                         case TransportRole.consumers:
-                            transportInfo = await client!.makeConsumerTransport({
-                                listenIps: [{
-                                    ip,
-                                    announcedIp,
-                                }],
-                            });
-                            logger.info(`Transport info for role ${role}: `, transportInfo);
+                            transportInfo = await client!.makeConsumerTransport(transportOptions);
+                            logger.info(`Transport info for role ${role}: (transportOptions, transportInfo)`, transportOptions, transportInfo);
                             break;
                         default:
                             logger.warn(`Not recognized role for transport ${role}`);

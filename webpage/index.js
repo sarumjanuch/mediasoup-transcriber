@@ -1,4 +1,3 @@
-const { promises } = require("dns");
 const { EventEmitter } = require("events");
 const { Device } = require("mediasoup-client");
 const { v4: uuidv4 } = require("uuid");
@@ -175,7 +174,8 @@ class Comlink {
 const possibleUserIds = ['Alice', 'Bob', 'Eve', 'Oscar', 'Homer', 'Maggie', 'Bart']
 const userId = possibleUserIds[Math.floor(Math.random() * possibleUserIds.length)];
 document.querySelector("span#userId").textContent = userId;
-const iceServerUrl = "stun:stun.l.google.com:19302";
+// const iceServerUrl = "stun:stun.l.google.com:19302";
+const iceServerUrl = "turn:turn.example.com:443?transport=tcp";
 const roomId = "test";
 const websocket = new WebSocket(`ws://localhost:5959?roomId=${roomId}&userId=${userId}`);
 let rcvTransport;
@@ -268,8 +268,15 @@ async function main() {
     });
     const sndTransportInfo = Object.assign(await comlink.requestTransportInfo({
             role: "producers",
-        }), 
-        { iceServers: [{ urls: iceServerUrl }] }
+        }),
+        { 
+            iceServers: [{
+                urls : ['turn:turn.example.com:443?transport=tcp'],
+                username   : 'example',
+                credential : 'example'
+            }],
+        }
+        // { iceServers: [{ urls: iceServerUrl }] }
     );
     console.log(`sndTransportInfo`, sndTransportInfo);
     sndTransport = device.createSendTransport(sndTransportInfo);
@@ -297,8 +304,15 @@ async function main() {
     const rcvTransportInfo = Object.assign(await comlink.requestTransportInfo({
             role: "consumers",
         }), 
-        { iceServers: [{ urls: iceServerUrl }] }
+        { 
+            iceServers: [{
+                urls : ['turn:turn.example.com:443?transport=tcp'],
+                username   : 'example',
+                credential : 'example'
+            }],
+        }
     );
+    
     rcvTransport = device.createRecvTransport(rcvTransportInfo);
     console.log(`rcvTransport ${rcvTransport.id} is created`, rcvTransport);
     rcvTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {

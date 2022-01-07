@@ -1,7 +1,7 @@
 WebRTC Transcriber
 ---
 
-Simple Proof of Concept for creating a creating a server accepting [WebRTC]() connections through a [mediasoup SFU]() and transcribe the audio using [Google Speech API]().
+Simple Proof of Concept for creating a server accepting [WebRTC](https://webrtc.org) connections through a [mediasoup SFU](https://mediasoup.org/) and transcribe the audio using [Google Speech API](https://cloud.google.com/speech-to-text/docs).
 
 ## Prerequisites
 
@@ -34,8 +34,10 @@ Webpage uses a simple html5 page together with a stylesheet, and calls a bundled
 ## Contributions
 
 Contributions are welcome. Here are some idea if you want to extend the functionalities:
- * Integrate any kind of speech to text API widely available (IBM watson, vosk, whatever...) to the server
+ * Integrate any kind of speech to text API widely available (IBM watson, vosk, whatever...)
  * Better utilization of transcription in the front end (more fancy UI)
+ * Add NLP module to respond voice commands
+ * Make a separate react app for the client-side
  * Improve the underlying Gstreamer audio converter pipeline in the server in order to improve the overall transcription quality
  
 ## License
