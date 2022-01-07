@@ -12,7 +12,10 @@ speech to text: https://cloud.google.com/speech-to-text
 Once you had the credential file copy it to for example `./keys` folder 
 and give a proper path in `docker-compose.yaml` for that.
 
-## Quick Start
+## Run with Docker
+
+1. Set the `GOOGLE_APPLICATION_CREDENTIALS` inside `docker-compose.yaml` to point to the file contains your credential (make sure the `mount` section also mounts the proper directory if you put it elsewhere than `./keys`)
+2. Set the announcedIp to your computer assigned IP. (mac: `ifconfig`, linux / windows: `ipconfig`)
 
 Start the server in docker
 
@@ -22,7 +25,7 @@ Building the image takes time (5-20mins). When the image is built go to `http://
 You should see the transcriptions in the tab and also should show who (which userId) 
 did it.
 
-## Run it locally 
+## Dev & Run
 
 Server uses Gstreamer to make a pipeline converting encoded audio to wav, hence 
 you need to install gstreamer on your local machine with good, bad, and ugly plugins.
