@@ -7,16 +7,16 @@ services:
     container_name: docker_transcriber
     network_mode: "bridge"
     ports:
-      - "5000-5900:5000-5900"
+      - "15000-15900:15000-15900/udp"
       - "5959:5959"
     environment:
       - HOSTNAME=localhost
-      - RTCMIN_PORT=5000
-      - RTCMAX_PORT=5900
+      - RTCMIN_PORT=15000
+      - RTCMAX_PORT=15900
       - WEBPAGE_PORT=5959
       - SERVER_IP=0.0.0.0
-      # - ANNOUNCED_IP=192.168.1.101
-      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      - ANNOUNCED_IP=192.168.1.101
+      - GOOGLE_APPLICATION_CREDENTIALS=/keys/google_creds.json
     volumes:
       - type: bind
         source: ./keys

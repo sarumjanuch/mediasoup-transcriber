@@ -25,7 +25,7 @@ async function lookup(hostname: any): Promise<string> {
 const { config } = require("./appconfig");
 logger.info("Loaded config", config.getLoadedConfig());
 logger.info("Endianess", os.endianness());
-logger.info(`process.env.ENV_HOST_IP: ${process.env.ENV_HOST_IP}`);
+logger.info(`process.env.GOOGLE_APPLICATION_CREDENTIALS: ${process.env.GOOGLE_APPLICATION_CREDENTIALS}`);
 
 async function main(): Promise<void> {
     const hostname = config.get("hostname");

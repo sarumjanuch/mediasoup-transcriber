@@ -933,9 +933,11 @@ async function main() {
                 consumer.close();
             }
         })
-        .onTranscriptionReceived(( { date: timestamp, userId, text} ) => {
-            date = new Date(timestamp);
-            ts = [
+        .onTranscriptionReceived(( payload ) => {
+            console.log(`transcription`, payload);
+            const { date: timestamp, userId, text} = payload;
+            const date = new Date(timestamp);
+            const ts = [
                 ('0' + date.getHours()).slice(-2),
                 ('0' + date.getMinutes()).slice(-2),
             ].join(":");
